@@ -1,0 +1,15 @@
+# Enable all available rules
+enableAllRules = true
+
+# Disabled rules
+[rule.blank-imports]
+Disabled = true
+
+[rule.package-comments]
+Disabled = true
+
+[rule.exported]
+Disabled = true
+
+[rule.line-length-limit]
+Disabled = true
