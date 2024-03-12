@@ -58,9 +58,9 @@ func IsBooked(v bool) predicate.Seat {
 	return predicate.Seat(sql.FieldEQ(FieldIsBooked, v))
 }
 
-// PassangerName applies equality check predicate on the "passanger_name" field. It's identical to PassangerNameEQ.
-func PassangerName(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldEQ(FieldPassangerName, v))
+// PassengerName applies equality check predicate on the "passenger_name" field. It's identical to PassengerNameEQ.
+func PassengerName(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldEQ(FieldPassengerName, v))
 }
 
 // Version applies equality check predicate on the "version" field. It's identical to VersionEQ.
@@ -78,79 +78,79 @@ func IsBookedNEQ(v bool) predicate.Seat {
 	return predicate.Seat(sql.FieldNEQ(FieldIsBooked, v))
 }
 
-// PassangerNameEQ applies the EQ predicate on the "passanger_name" field.
-func PassangerNameEQ(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldEQ(FieldPassangerName, v))
+// PassengerNameEQ applies the EQ predicate on the "passenger_name" field.
+func PassengerNameEQ(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldEQ(FieldPassengerName, v))
 }
 
-// PassangerNameNEQ applies the NEQ predicate on the "passanger_name" field.
-func PassangerNameNEQ(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldNEQ(FieldPassangerName, v))
+// PassengerNameNEQ applies the NEQ predicate on the "passenger_name" field.
+func PassengerNameNEQ(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldNEQ(FieldPassengerName, v))
 }
 
-// PassangerNameIn applies the In predicate on the "passanger_name" field.
-func PassangerNameIn(vs ...string) predicate.Seat {
-	return predicate.Seat(sql.FieldIn(FieldPassangerName, vs...))
+// PassengerNameIn applies the In predicate on the "passenger_name" field.
+func PassengerNameIn(vs ...string) predicate.Seat {
+	return predicate.Seat(sql.FieldIn(FieldPassengerName, vs...))
 }
 
-// PassangerNameNotIn applies the NotIn predicate on the "passanger_name" field.
-func PassangerNameNotIn(vs ...string) predicate.Seat {
-	return predicate.Seat(sql.FieldNotIn(FieldPassangerName, vs...))
+// PassengerNameNotIn applies the NotIn predicate on the "passenger_name" field.
+func PassengerNameNotIn(vs ...string) predicate.Seat {
+	return predicate.Seat(sql.FieldNotIn(FieldPassengerName, vs...))
 }
 
-// PassangerNameGT applies the GT predicate on the "passanger_name" field.
-func PassangerNameGT(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldGT(FieldPassangerName, v))
+// PassengerNameGT applies the GT predicate on the "passenger_name" field.
+func PassengerNameGT(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldGT(FieldPassengerName, v))
 }
 
-// PassangerNameGTE applies the GTE predicate on the "passanger_name" field.
-func PassangerNameGTE(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldGTE(FieldPassangerName, v))
+// PassengerNameGTE applies the GTE predicate on the "passenger_name" field.
+func PassengerNameGTE(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldGTE(FieldPassengerName, v))
 }
 
-// PassangerNameLT applies the LT predicate on the "passanger_name" field.
-func PassangerNameLT(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldLT(FieldPassangerName, v))
+// PassengerNameLT applies the LT predicate on the "passenger_name" field.
+func PassengerNameLT(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldLT(FieldPassengerName, v))
 }
 
-// PassangerNameLTE applies the LTE predicate on the "passanger_name" field.
-func PassangerNameLTE(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldLTE(FieldPassangerName, v))
+// PassengerNameLTE applies the LTE predicate on the "passenger_name" field.
+func PassengerNameLTE(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldLTE(FieldPassengerName, v))
 }
 
-// PassangerNameContains applies the Contains predicate on the "passanger_name" field.
-func PassangerNameContains(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldContains(FieldPassangerName, v))
+// PassengerNameContains applies the Contains predicate on the "passenger_name" field.
+func PassengerNameContains(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldContains(FieldPassengerName, v))
 }
 
-// PassangerNameHasPrefix applies the HasPrefix predicate on the "passanger_name" field.
-func PassangerNameHasPrefix(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldHasPrefix(FieldPassangerName, v))
+// PassengerNameHasPrefix applies the HasPrefix predicate on the "passenger_name" field.
+func PassengerNameHasPrefix(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldHasPrefix(FieldPassengerName, v))
 }
 
-// PassangerNameHasSuffix applies the HasSuffix predicate on the "passanger_name" field.
-func PassangerNameHasSuffix(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldHasSuffix(FieldPassangerName, v))
+// PassengerNameHasSuffix applies the HasSuffix predicate on the "passenger_name" field.
+func PassengerNameHasSuffix(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldHasSuffix(FieldPassengerName, v))
 }
 
-// PassangerNameIsNil applies the IsNil predicate on the "passanger_name" field.
-func PassangerNameIsNil() predicate.Seat {
-	return predicate.Seat(sql.FieldIsNull(FieldPassangerName))
+// PassengerNameIsNil applies the IsNil predicate on the "passenger_name" field.
+func PassengerNameIsNil() predicate.Seat {
+	return predicate.Seat(sql.FieldIsNull(FieldPassengerName))
 }
 
-// PassangerNameNotNil applies the NotNil predicate on the "passanger_name" field.
-func PassangerNameNotNil() predicate.Seat {
-	return predicate.Seat(sql.FieldNotNull(FieldPassangerName))
+// PassengerNameNotNil applies the NotNil predicate on the "passenger_name" field.
+func PassengerNameNotNil() predicate.Seat {
+	return predicate.Seat(sql.FieldNotNull(FieldPassengerName))
 }
 
-// PassangerNameEqualFold applies the EqualFold predicate on the "passanger_name" field.
-func PassangerNameEqualFold(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldEqualFold(FieldPassangerName, v))
+// PassengerNameEqualFold applies the EqualFold predicate on the "passenger_name" field.
+func PassengerNameEqualFold(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldEqualFold(FieldPassengerName, v))
 }
 
-// PassangerNameContainsFold applies the ContainsFold predicate on the "passanger_name" field.
-func PassangerNameContainsFold(v string) predicate.Seat {
-	return predicate.Seat(sql.FieldContainsFold(FieldPassangerName, v))
+// PassengerNameContainsFold applies the ContainsFold predicate on the "passenger_name" field.
+func PassengerNameContainsFold(v string) predicate.Seat {
+	return predicate.Seat(sql.FieldContainsFold(FieldPassengerName, v))
 }
 
 // VersionEQ applies the EQ predicate on the "version" field.

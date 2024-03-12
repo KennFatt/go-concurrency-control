@@ -12,7 +12,7 @@ var (
 	SeatsColumns = []*schema.Column{
 		{Name: "id", Type: field.TypeInt, Increment: true},
 		{Name: "is_booked", Type: field.TypeBool, Default: false},
-		{Name: "passanger_name", Type: field.TypeString, Nullable: true},
+		{Name: "passenger_name", Type: field.TypeString, Nullable: true},
 		{Name: "version", Type: field.TypeUint64, Nullable: true, Default: 0},
 	}
 	// SeatsTable holds the schema information for the "seats" table.

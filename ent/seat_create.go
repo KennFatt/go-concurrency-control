@@ -33,16 +33,16 @@ func (sc *SeatCreate) SetNillableIsBooked(b *bool) *SeatCreate {
 	return sc
 }
 
-// SetPassangerName sets the "passanger_name" field.
-func (sc *SeatCreate) SetPassangerName(s string) *SeatCreate {
-	sc.mutation.SetPassangerName(s)
+// SetPassengerName sets the "passenger_name" field.
+func (sc *SeatCreate) SetPassengerName(s string) *SeatCreate {
+	sc.mutation.SetPassengerName(s)
 	return sc
 }
 
-// SetNillablePassangerName sets the "passanger_name" field if the given value is not nil.
-func (sc *SeatCreate) SetNillablePassangerName(s *string) *SeatCreate {
+// SetNillablePassengerName sets the "passenger_name" field if the given value is not nil.
+func (sc *SeatCreate) SetNillablePassengerName(s *string) *SeatCreate {
 	if s != nil {
-		sc.SetPassangerName(*s)
+		sc.SetPassengerName(*s)
 	}
 	return sc
 }
@@ -153,9 +153,9 @@ func (sc *SeatCreate) createSpec() (*Seat, *sqlgraph.CreateSpec) {
 		_spec.SetField(seat.FieldIsBooked, field.TypeBool, value)
 		_node.IsBooked = value
 	}
-	if value, ok := sc.mutation.PassangerName(); ok {
-		_spec.SetField(seat.FieldPassangerName, field.TypeString, value)
-		_node.PassangerName = &value
+	if value, ok := sc.mutation.PassengerName(); ok {
+		_spec.SetField(seat.FieldPassengerName, field.TypeString, value)
+		_node.PassengerName = &value
 	}
 	if value, ok := sc.mutation.Version(); ok {
 		_spec.SetField(seat.FieldVersion, field.TypeUint64, value)

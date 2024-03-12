@@ -75,14 +75,14 @@ func (us *UseCases) BookSeat(ctx context.Context, in InBookSeat) (*OutBookSeat, 
 	// _, err = optimisticUpdate(ctx, tx, requestedSeat, func(su *ent.SeatUpdate) *ent.SeatUpdate {
 	// 	return su.
 	// 		SetIsBooked(true).
-	// 		SetPassangerName(in.PassangerName)
+	// 		SetPassengerName(in.PassangerName)
 	// })
 
 	_, err = tx.Seat.
 		Update().
 		Where(seat.ID(in.SeatID)).
 		SetIsBooked(true).
-		SetPassangerName(in.PassangerName).
+		SetPassengerName(in.PassangerName).
 		Save(ctx)
 	if err != nil {
 		return nil, err

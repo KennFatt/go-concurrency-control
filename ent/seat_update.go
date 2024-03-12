@@ -41,23 +41,23 @@ func (su *SeatUpdate) SetNillableIsBooked(b *bool) *SeatUpdate {
 	return su
 }
 
-// SetPassangerName sets the "passanger_name" field.
-func (su *SeatUpdate) SetPassangerName(s string) *SeatUpdate {
-	su.mutation.SetPassangerName(s)
+// SetPassengerName sets the "passenger_name" field.
+func (su *SeatUpdate) SetPassengerName(s string) *SeatUpdate {
+	su.mutation.SetPassengerName(s)
 	return su
 }
 
-// SetNillablePassangerName sets the "passanger_name" field if the given value is not nil.
-func (su *SeatUpdate) SetNillablePassangerName(s *string) *SeatUpdate {
+// SetNillablePassengerName sets the "passenger_name" field if the given value is not nil.
+func (su *SeatUpdate) SetNillablePassengerName(s *string) *SeatUpdate {
 	if s != nil {
-		su.SetPassangerName(*s)
+		su.SetPassengerName(*s)
 	}
 	return su
 }
 
-// ClearPassangerName clears the value of the "passanger_name" field.
-func (su *SeatUpdate) ClearPassangerName() *SeatUpdate {
-	su.mutation.ClearPassangerName()
+// ClearPassengerName clears the value of the "passenger_name" field.
+func (su *SeatUpdate) ClearPassengerName() *SeatUpdate {
+	su.mutation.ClearPassengerName()
 	return su
 }
 
@@ -132,11 +132,11 @@ func (su *SeatUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	if value, ok := su.mutation.IsBooked(); ok {
 		_spec.SetField(seat.FieldIsBooked, field.TypeBool, value)
 	}
-	if value, ok := su.mutation.PassangerName(); ok {
-		_spec.SetField(seat.FieldPassangerName, field.TypeString, value)
+	if value, ok := su.mutation.PassengerName(); ok {
+		_spec.SetField(seat.FieldPassengerName, field.TypeString, value)
 	}
-	if su.mutation.PassangerNameCleared() {
-		_spec.ClearField(seat.FieldPassangerName, field.TypeString)
+	if su.mutation.PassengerNameCleared() {
+		_spec.ClearField(seat.FieldPassengerName, field.TypeString)
 	}
 	if value, ok := su.mutation.Version(); ok {
 		_spec.SetField(seat.FieldVersion, field.TypeUint64, value)
@@ -181,23 +181,23 @@ func (suo *SeatUpdateOne) SetNillableIsBooked(b *bool) *SeatUpdateOne {
 	return suo
 }
 
-// SetPassangerName sets the "passanger_name" field.
-func (suo *SeatUpdateOne) SetPassangerName(s string) *SeatUpdateOne {
-	suo.mutation.SetPassangerName(s)
+// SetPassengerName sets the "passenger_name" field.
+func (suo *SeatUpdateOne) SetPassengerName(s string) *SeatUpdateOne {
+	suo.mutation.SetPassengerName(s)
 	return suo
 }
 
-// SetNillablePassangerName sets the "passanger_name" field if the given value is not nil.
-func (suo *SeatUpdateOne) SetNillablePassangerName(s *string) *SeatUpdateOne {
+// SetNillablePassengerName sets the "passenger_name" field if the given value is not nil.
+func (suo *SeatUpdateOne) SetNillablePassengerName(s *string) *SeatUpdateOne {
 	if s != nil {
-		suo.SetPassangerName(*s)
+		suo.SetPassengerName(*s)
 	}
 	return suo
 }
 
-// ClearPassangerName clears the value of the "passanger_name" field.
-func (suo *SeatUpdateOne) ClearPassangerName() *SeatUpdateOne {
-	suo.mutation.ClearPassangerName()
+// ClearPassengerName clears the value of the "passenger_name" field.
+func (suo *SeatUpdateOne) ClearPassengerName() *SeatUpdateOne {
+	suo.mutation.ClearPassengerName()
 	return suo
 }
 
@@ -302,11 +302,11 @@ func (suo *SeatUpdateOne) sqlSave(ctx context.Context) (_node *Seat, err error) 
 	if value, ok := suo.mutation.IsBooked(); ok {
 		_spec.SetField(seat.FieldIsBooked, field.TypeBool, value)
 	}
-	if value, ok := suo.mutation.PassangerName(); ok {
-		_spec.SetField(seat.FieldPassangerName, field.TypeString, value)
+	if value, ok := suo.mutation.PassengerName(); ok {
+		_spec.SetField(seat.FieldPassengerName, field.TypeString, value)
 	}
-	if suo.mutation.PassangerNameCleared() {
-		_spec.ClearField(seat.FieldPassangerName, field.TypeString)
+	if suo.mutation.PassengerNameCleared() {
+		_spec.ClearField(seat.FieldPassengerName, field.TypeString)
 	}
 	if value, ok := suo.mutation.Version(); ok {
 		_spec.SetField(seat.FieldVersion, field.TypeUint64, value)

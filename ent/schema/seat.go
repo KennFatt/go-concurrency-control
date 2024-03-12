@@ -15,7 +15,7 @@ func (Seat) Fields() []ent.Field {
 	return []ent.Field{
 		field.Int("id"),
 		field.Bool("is_booked").Default(false),
-		field.String("passanger_name").Optional().Nillable(),
+		field.String("passenger_name").Optional().Nillable(),
 		field.Uint64("version").Default(0).Optional(),
 	}
 }

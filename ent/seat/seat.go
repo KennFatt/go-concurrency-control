@@ -13,8 +13,8 @@ const (
 	FieldID = "id"
 	// FieldIsBooked holds the string denoting the is_booked field in the database.
 	FieldIsBooked = "is_booked"
-	// FieldPassangerName holds the string denoting the passanger_name field in the database.
-	FieldPassangerName = "passanger_name"
+	// FieldPassengerName holds the string denoting the passenger_name field in the database.
+	FieldPassengerName = "passenger_name"
 	// FieldVersion holds the string denoting the version field in the database.
 	FieldVersion = "version"
 	// Table holds the table name of the seat in the database.
@@ -25,7 +25,7 @@ const (
 var Columns = []string{
 	FieldID,
 	FieldIsBooked,
-	FieldPassangerName,
+	FieldPassengerName,
 	FieldVersion,
 }
 
@@ -59,9 +59,9 @@ func ByIsBooked(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldIsBooked, opts...).ToFunc()
 }
 
-// ByPassangerName orders the results by the passanger_name field.
-func ByPassangerName(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldPassangerName, opts...).ToFunc()
+// ByPassengerName orders the results by the passenger_name field.
+func ByPassengerName(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldPassengerName, opts...).ToFunc()
 }
 
 // ByVersion orders the results by the version field.

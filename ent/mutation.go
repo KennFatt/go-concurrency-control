@@ -33,7 +33,7 @@ type SeatMutation struct {
 	typ            string
 	id             *int
 	is_booked      *bool
-	passanger_name *string
+	passenger_name *string
 	version        *uint64
 	addversion     *int64
 	clearedFields  map[string]struct{}
@@ -182,53 +182,53 @@ func (m *SeatMutation) ResetIsBooked() {
 	m.is_booked = nil
 }
 
-// SetPassangerName sets the "passanger_name" field.
-func (m *SeatMutation) SetPassangerName(s string) {
-	m.passanger_name = &s
+// SetPassengerName sets the "passenger_name" field.
+func (m *SeatMutation) SetPassengerName(s string) {
+	m.passenger_name = &s
 }
 
-// PassangerName returns the value of the "passanger_name" field in the mutation.
-func (m *SeatMutation) PassangerName() (r string, exists bool) {
-	v := m.passanger_name
+// PassengerName returns the value of the "passenger_name" field in the mutation.
+func (m *SeatMutation) PassengerName() (r string, exists bool) {
+	v := m.passenger_name
 	if v == nil {
 		return
 	}
 	return *v, true
 }
 
-// OldPassangerName returns the old "passanger_name" field's value of the Seat entity.
+// OldPassengerName returns the old "passenger_name" field's value of the Seat entity.
 // If the Seat object wasn't provided to the builder, the object is fetched from the database.
 // An error is returned if the mutation operation is not UpdateOne, or the database query fails.
-func (m *SeatMutation) OldPassangerName(ctx context.Context) (v *string, err error) {
+func (m *SeatMutation) OldPassengerName(ctx context.Context) (v *string, err error) {
 	if !m.op.Is(OpUpdateOne) {
-		return v, errors.New("OldPassangerName is only allowed on UpdateOne operations")
+		return v, errors.New("OldPassengerName is only allowed on UpdateOne operations")
 	}
 	if m.id == nil || m.oldValue == nil {
-		return v, errors.New("OldPassangerName requires an ID field in the mutation")
+		return v, errors.New("OldPassengerName requires an ID field in the mutation")
 	}
 	oldValue, err := m.oldValue(ctx)
 	if err != nil {
-		return v, fmt.Errorf("querying old value for OldPassangerName: %w", err)
+		return v, fmt.Errorf("querying old value for OldPassengerName: %w", err)
 	}
-	return oldValue.PassangerName, nil
+	return oldValue.PassengerName, nil
 }
 
-// ClearPassangerName clears the value of the "passanger_name" field.
-func (m *SeatMutation) ClearPassangerName() {
-	m.passanger_name = nil
-	m.clearedFields[seat.FieldPassangerName] = struct{}{}
+// ClearPassengerName clears the value of the "passenger_name" field.
+func (m *SeatMutation) ClearPassengerName() {
+	m.passenger_name = nil
+	m.clearedFields[seat.FieldPassengerName] = struct{}{}
 }
 
-// PassangerNameCleared returns if the "passanger_name" field was cleared in this mutation.
-func (m *SeatMutation) PassangerNameCleared() bool {
-	_, ok := m.clearedFields[seat.FieldPassangerName]
+// PassengerNameCleared returns if the "passenger_name" field was cleared in this mutation.
+func (m *SeatMutation) PassengerNameCleared() bool {
+	_, ok := m.clearedFields[seat.FieldPassengerName]
 	return ok
 }
 
-// ResetPassangerName resets all changes to the "passanger_name" field.
-func (m *SeatMutation) ResetPassangerName() {
-	m.passanger_name = nil
-	delete(m.clearedFields, seat.FieldPassangerName)
+// ResetPassengerName resets all changes to the "passenger_name" field.
+func (m *SeatMutation) ResetPassengerName() {
+	m.passenger_name = nil
+	delete(m.clearedFields, seat.FieldPassengerName)
 }
 
 // SetVersion sets the "version" field.
@@ -339,8 +339,8 @@ func (m *SeatMutation) Fields() []string {
 	if m.is_booked != nil {
 		fields = append(fields, seat.FieldIsBooked)
 	}
-	if m.passanger_name != nil {
-		fields = append(fields, seat.FieldPassangerName)
+	if m.passenger_name != nil {
+		fields = append(fields, seat.FieldPassengerName)
 	}
 	if m.version != nil {
 		fields = append(fields, seat.FieldVersion)
@@ -355,8 +355,8 @@ func (m *SeatMutation) Field(name string) (ent.Value, bool) {
 	switch name {
 	case seat.FieldIsBooked:
 		return m.IsBooked()
-	case seat.FieldPassangerName:
-		return m.PassangerName()
+	case seat.FieldPassengerName:
+		return m.PassengerName()
 	case seat.FieldVersion:
 		return m.Version()
 	}
@@ -370,8 +370,8 @@ func (m *SeatMutation) OldField(ctx context.Context, name string) (ent.Value, er
 	switch name {
 	case seat.FieldIsBooked:
 		return m.OldIsBooked(ctx)
-	case seat.FieldPassangerName:
-		return m.OldPassangerName(ctx)
+	case seat.FieldPassengerName:
+		return m.OldPassengerName(ctx)
 	case seat.FieldVersion:
 		return m.OldVersion(ctx)
 	}
@@ -390,12 +390,12 @@ func (m *SeatMutation) SetField(name string, value ent.Value) error {
 		}
 		m.SetIsBooked(v)
 		return nil
-	case seat.FieldPassangerName:
+	case seat.FieldPassengerName:
 		v, ok := value.(string)
 		if !ok {
 			return fmt.Errorf("unexpected type %T for field %s", value, name)
 		}
-		m.SetPassangerName(v)
+		m.SetPassengerName(v)
 		return nil
 	case seat.FieldVersion:
 		v, ok := value.(uint64)
@@ -449,8 +449,8 @@ func (m *SeatMutation) AddField(name string, value ent.Value) error {
 // mutation.
 func (m *SeatMutation) ClearedFields() []string {
 	var fields []string
-	if m.FieldCleared(seat.FieldPassangerName) {
-		fields = append(fields, seat.FieldPassangerName)
+	if m.FieldCleared(seat.FieldPassengerName) {
+		fields = append(fields, seat.FieldPassengerName)
 	}
 	if m.FieldCleared(seat.FieldVersion) {
 		fields = append(fields, seat.FieldVersion)
@@ -469,8 +469,8 @@ func (m *SeatMutation) FieldCleared(name string) bool {
 // error if the field is not defined in the schema.
 func (m *SeatMutation) ClearField(name string) error {
 	switch name {
-	case seat.FieldPassangerName:
-		m.ClearPassangerName()
+	case seat.FieldPassengerName:
+		m.ClearPassengerName()
 		return nil
 	case seat.FieldVersion:
 		m.ClearVersion()
@@ -486,8 +486,8 @@ func (m *SeatMutation) ResetField(name string) error {
 	case seat.FieldIsBooked:
 		m.ResetIsBooked()
 		return nil
-	case seat.FieldPassangerName:
-		m.ResetPassangerName()
+	case seat.FieldPassengerName:
+		m.ResetPassengerName()
 		return nil
 	case seat.FieldVersion:
 		m.ResetVersion()

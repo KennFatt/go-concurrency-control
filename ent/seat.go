@@ -18,8 +18,8 @@ type Seat struct {
 	ID int `json:"id,omitempty"`
 	// IsBooked holds the value of the "is_booked" field.
 	IsBooked bool `json:"is_booked,omitempty"`
-	// PassangerName holds the value of the "passanger_name" field.
-	PassangerName *string `json:"passanger_name,omitempty"`
+	// PassengerName holds the value of the "passenger_name" field.
+	PassengerName *string `json:"passenger_name,omitempty"`
 	// Version holds the value of the "version" field.
 	Version      uint64 `json:"version,omitempty"`
 	selectValues sql.SelectValues
@@ -34,7 +34,7 @@ func (*Seat) scanValues(columns []string) ([]any, error) {
 			values[i] = new(sql.NullBool)
 		case seat.FieldID, seat.FieldVersion:
 			values[i] = new(sql.NullInt64)
-		case seat.FieldPassangerName:
+		case seat.FieldPassengerName:
 			values[i] = new(sql.NullString)
 		default:
 			values[i] = new(sql.UnknownType)
@@ -63,12 +63,12 @@ func (s *Seat) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				s.IsBooked = value.Bool
 			}
-		case seat.FieldPassangerName:
+		case seat.FieldPassengerName:
 			if value, ok := values[i].(*sql.NullString); !ok {
-				return fmt.Errorf("unexpected type %T for field passanger_name", values[i])
+				return fmt.Errorf("unexpected type %T for field passenger_name", values[i])
 			} else if value.Valid {
-				s.PassangerName = new(string)
-				*s.PassangerName = value.String
+				s.PassengerName = new(string)
+				*s.PassengerName = value.String
 			}
 		case seat.FieldVersion:
 			if value, ok := values[i].(*sql.NullInt64); !ok {
@@ -115,8 +115,8 @@ func (s *Seat) String() string {
 	builder.WriteString("is_booked=")
 	builder.WriteString(fmt.Sprintf("%v", s.IsBooked))
 	builder.WriteString(", ")
-	if v := s.PassangerName; v != nil {
-		builder.WriteString("passanger_name=")
+	if v := s.PassengerName; v != nil {
+		builder.WriteString("passenger_name=")
 		builder.WriteString(*v)
 	}
 	builder.WriteString(", ")
