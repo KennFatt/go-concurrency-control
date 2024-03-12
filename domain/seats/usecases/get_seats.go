@@ -10,7 +10,7 @@ type (
 	OutGetSeats struct {
 		ID            int     `json:"id"`
 		IsBooked      bool    `json:"isBooked"`
-		PassangerName *string `json:"passangerName"`
+		PassengerName *string `json:"passengerName"`
 	}
 )
 

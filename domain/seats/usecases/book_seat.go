@@ -13,13 +13,13 @@ import (
 type (
 	InBookSeat struct {
 		SeatID        int    `json:"seatId"`
-		PassangerName string `json:"passangerName"`
+		PassengerName string `json:"passengerName"`
 	}
 
 	OutBookSeat struct {
 		ID            int     `json:"id"`
 		IsBooked      bool    `json:"isBooked"`
-		PassangerName *string `json:"passangerName"`
+		PassengerName *string `json:"passengerName"`
 	}
 )
 
@@ -75,14 +75,14 @@ func (us *UseCases) BookSeat(ctx context.Context, in InBookSeat) (*OutBookSeat, 
 	// _, err = optimisticUpdate(ctx, tx, requestedSeat, func(su *ent.SeatUpdate) *ent.SeatUpdate {
 	// 	return su.
 	// 		SetIsBooked(true).
-	// 		SetPassengerName(in.PassangerName)
+	// 		SetPassengerName(in.PassengerName)
 	// })
 
 	_, err = tx.Seat.
 		Update().
 		Where(seat.ID(in.SeatID)).
 		SetIsBooked(true).
-		SetPassengerName(in.PassangerName).
+		SetPassengerName(in.PassengerName).
 		Save(ctx)
 	if err != nil {
 		return nil, err

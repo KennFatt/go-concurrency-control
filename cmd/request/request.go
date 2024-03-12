@@ -16,7 +16,7 @@ const (
 
 type BookFlightSeatPayload struct {
 	SeatID        int    `json:"seatId"`
-	PassangerName string `json:"passangerName"`
+	PassengerName string `json:"passengerName"`
 }
 
 type requestInfo struct {
@@ -27,8 +27,8 @@ type requestInfo struct {
 	end     int64
 	latency time.Duration
 
-	response        []byte
-	isResponseError int
+	response     []byte
+	responseCode int
 }
 
 func bookFlightSeat(payload BookFlightSeatPayload, ch chan<- requestInfo) {
@@ -45,10 +45,10 @@ func bookFlightSeat(payload BookFlightSeatPayload, ch chan<- requestInfo) {
 	responseBody, err := io.ReadAll(resp.Body)
 
 	ch <- requestInfo{
-		payload:         payload,
-		err:             err,
-		isResponseError: resp.StatusCode,
-		response:        responseBody,
+		payload:      payload,
+		err:          err,
+		responseCode: resp.StatusCode,
+		response:     responseBody,
 
 		latency: time.Since(start).Round(time.Millisecond),
 		start:   start.UnixMicro(),
@@ -61,15 +61,15 @@ func main() {
 	passangers := []BookFlightSeatPayload{
 		{
 			SeatID:        targetedFlightSeat,
-			PassangerName: "Foo",
+			PassengerName: "Foo",
 		},
 		{
 			SeatID:        targetedFlightSeat,
-			PassangerName: "Bar",
+			PassengerName: "Bar",
 		},
 		{
 			SeatID:        targetedFlightSeat,
-			PassangerName: "Fizz",
+			PassengerName: "Fizz",
 		},
 	}
 
@@ -94,7 +94,7 @@ func main() {
 			"response", string(reqInfo.response),
 		}
 
-		if reqInfo.isResponseError != http.StatusOK {
+		if reqInfo.responseCode != http.StatusOK {
 			slog.Error("request sent", logArgs...)
 		} else {
 			slog.Info("request sent", logArgs...)
