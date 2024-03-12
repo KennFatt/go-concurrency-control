@@ -68,5 +68,12 @@ func NewDB(conf *Database) (*ent.Client, error) {
 		dir.WriteFile(fmt.Sprintf("%d.sql", now), buffer.Bytes())
 	}
 
+
+	// ensure the DB connection is established successfully
+	err = db.Ping()
+	if err != nil {
+		return nil, err
+	}
+
 	return client, nil
 }
