@@ -16,11 +16,16 @@ func (Seat) Fields() []ent.Field {
 		field.Int("id"),
 		field.Bool("is_booked").Default(false),
 		field.String("passenger_name").Optional().Nillable(),
-		field.Uint64("version").Default(0).Optional(),
 	}
 }
 
 // Edges of the Seat.
 func (Seat) Edges() []ent.Edge {
 	return nil
+}
+
+func (Seat) Mixin() []ent.Mixin {
+	return []ent.Mixin{
+		VersionMixin{},
+	}
 }
