@@ -13,6 +13,7 @@ import (
 	"entgo.io/ent/dialect/sql/schema"
 
 	_ "github.com/go-sql-driver/mysql"
+	_ "go-cc/ent/runtime"
 )
 
 func NewDB(conf *Database) (*ent.Client, error) {
