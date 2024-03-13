@@ -307,7 +307,8 @@ func (c *SeatClient) GetX(ctx context.Context, id int) *Seat {
 
 // Hooks returns the client hooks.
 func (c *SeatClient) Hooks() []Hook {
-	return c.hooks.Seat
+	hooks := c.hooks.Seat
+	return append(hooks[:len(hooks):len(hooks)], seat.Hooks[:]...)
 }
 
 // Interceptors returns the client interceptors.

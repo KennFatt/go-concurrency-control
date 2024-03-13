@@ -16,13 +16,13 @@ type Seat struct {
 	config `json:"-"`
 	// ID of the ent.
 	ID int `json:"id,omitempty"`
+	// Version holds the value of the "version" field.
+	Version uint64 `json:"version,omitempty"`
 	// IsBooked holds the value of the "is_booked" field.
 	IsBooked bool `json:"is_booked,omitempty"`
 	// PassengerName holds the value of the "passenger_name" field.
 	PassengerName *string `json:"passenger_name,omitempty"`
-	// Version holds the value of the "version" field.
-	Version      uint64 `json:"version,omitempty"`
-	selectValues sql.SelectValues
+	selectValues  sql.SelectValues
 }
 
 // scanValues returns the types for scanning values from sql.Rows.
@@ -57,6 +57,12 @@ func (s *Seat) assignValues(columns []string, values []any) error {
 				return fmt.Errorf("unexpected type %T for field id", value)
 			}
 			s.ID = int(value.Int64)
+		case seat.FieldVersion:
+			if value, ok := values[i].(*sql.NullInt64); !ok {
+				return fmt.Errorf("unexpected type %T for field version", values[i])
+			} else if value.Valid {
+				s.Version = uint64(value.Int64)
+			}
 		case seat.FieldIsBooked:
 			if value, ok := values[i].(*sql.NullBool); !ok {
 				return fmt.Errorf("unexpected type %T for field is_booked", values[i])
@@ -69,12 +75,6 @@ func (s *Seat) assignValues(columns []string, values []any) error {
 			} else if value.Valid {
 				s.PassengerName = new(string)
 				*s.PassengerName = value.String
-			}
-		case seat.FieldVersion:
-			if value, ok := values[i].(*sql.NullInt64); !ok {
-				return fmt.Errorf("unexpected type %T for field version", values[i])
-			} else if value.Valid {
-				s.Version = uint64(value.Int64)
 			}
 		default:
 			s.selectValues.Set(columns[i], values[i])
@@ -112,6 +112,9 @@ func (s *Seat) String() string {
 	var builder strings.Builder
 	builder.WriteString("Seat(")
 	builder.WriteString(fmt.Sprintf("id=%v, ", s.ID))
+	builder.WriteString("version=")
+	builder.WriteString(fmt.Sprintf("%v", s.Version))
+	builder.WriteString(", ")
 	builder.WriteString("is_booked=")
 	builder.WriteString(fmt.Sprintf("%v", s.IsBooked))
 	builder.WriteString(", ")
@@ -119,9 +122,6 @@ func (s *Seat) String() string {
 		builder.WriteString("passenger_name=")
 		builder.WriteString(*v)
 	}
-	builder.WriteString(", ")
-	builder.WriteString("version=")
-	builder.WriteString(fmt.Sprintf("%v", s.Version))
 	builder.WriteByte(')')
 	return builder.String()
 }

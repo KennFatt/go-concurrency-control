@@ -27,6 +27,33 @@ func (su *SeatUpdate) Where(ps ...predicate.Seat) *SeatUpdate {
 	return su
 }
 
+// SetVersion sets the "version" field.
+func (su *SeatUpdate) SetVersion(u uint64) *SeatUpdate {
+	su.mutation.ResetVersion()
+	su.mutation.SetVersion(u)
+	return su
+}
+
+// SetNillableVersion sets the "version" field if the given value is not nil.
+func (su *SeatUpdate) SetNillableVersion(u *uint64) *SeatUpdate {
+	if u != nil {
+		su.SetVersion(*u)
+	}
+	return su
+}
+
+// AddVersion adds u to the "version" field.
+func (su *SeatUpdate) AddVersion(u int64) *SeatUpdate {
+	su.mutation.AddVersion(u)
+	return su
+}
+
+// ClearVersion clears the value of the "version" field.
+func (su *SeatUpdate) ClearVersion() *SeatUpdate {
+	su.mutation.ClearVersion()
+	return su
+}
+
 // SetIsBooked sets the "is_booked" field.
 func (su *SeatUpdate) SetIsBooked(b bool) *SeatUpdate {
 	su.mutation.SetIsBooked(b)
@@ -58,33 +85,6 @@ func (su *SeatUpdate) SetNillablePassengerName(s *string) *SeatUpdate {
 // ClearPassengerName clears the value of the "passenger_name" field.
 func (su *SeatUpdate) ClearPassengerName() *SeatUpdate {
 	su.mutation.ClearPassengerName()
-	return su
-}
-
-// SetVersion sets the "version" field.
-func (su *SeatUpdate) SetVersion(u uint64) *SeatUpdate {
-	su.mutation.ResetVersion()
-	su.mutation.SetVersion(u)
-	return su
-}
-
-// SetNillableVersion sets the "version" field if the given value is not nil.
-func (su *SeatUpdate) SetNillableVersion(u *uint64) *SeatUpdate {
-	if u != nil {
-		su.SetVersion(*u)
-	}
-	return su
-}
-
-// AddVersion adds u to the "version" field.
-func (su *SeatUpdate) AddVersion(u int64) *SeatUpdate {
-	su.mutation.AddVersion(u)
-	return su
-}
-
-// ClearVersion clears the value of the "version" field.
-func (su *SeatUpdate) ClearVersion() *SeatUpdate {
-	su.mutation.ClearVersion()
 	return su
 }
 
@@ -129,15 +129,6 @@ func (su *SeatUpdate) sqlSave(ctx context.Context) (n int, err error) {
 			}
 		}
 	}
-	if value, ok := su.mutation.IsBooked(); ok {
-		_spec.SetField(seat.FieldIsBooked, field.TypeBool, value)
-	}
-	if value, ok := su.mutation.PassengerName(); ok {
-		_spec.SetField(seat.FieldPassengerName, field.TypeString, value)
-	}
-	if su.mutation.PassengerNameCleared() {
-		_spec.ClearField(seat.FieldPassengerName, field.TypeString)
-	}
 	if value, ok := su.mutation.Version(); ok {
 		_spec.SetField(seat.FieldVersion, field.TypeUint64, value)
 	}
@@ -146,6 +137,15 @@ func (su *SeatUpdate) sqlSave(ctx context.Context) (n int, err error) {
 	}
 	if su.mutation.VersionCleared() {
 		_spec.ClearField(seat.FieldVersion, field.TypeUint64)
+	}
+	if value, ok := su.mutation.IsBooked(); ok {
+		_spec.SetField(seat.FieldIsBooked, field.TypeBool, value)
+	}
+	if value, ok := su.mutation.PassengerName(); ok {
+		_spec.SetField(seat.FieldPassengerName, field.TypeString, value)
+	}
+	if su.mutation.PassengerNameCleared() {
+		_spec.ClearField(seat.FieldPassengerName, field.TypeString)
 	}
 	if n, err = sqlgraph.UpdateNodes(ctx, su.driver, _spec); err != nil {
 		if _, ok := err.(*sqlgraph.NotFoundError); ok {
@@ -165,6 +165,33 @@ type SeatUpdateOne struct {
 	fields   []string
 	hooks    []Hook
 	mutation *SeatMutation
+}
+
+// SetVersion sets the "version" field.
+func (suo *SeatUpdateOne) SetVersion(u uint64) *SeatUpdateOne {
+	suo.mutation.ResetVersion()
+	suo.mutation.SetVersion(u)
+	return suo
+}
+
+// SetNillableVersion sets the "version" field if the given value is not nil.
+func (suo *SeatUpdateOne) SetNillableVersion(u *uint64) *SeatUpdateOne {
+	if u != nil {
+		suo.SetVersion(*u)
+	}
+	return suo
+}
+
+// AddVersion adds u to the "version" field.
+func (suo *SeatUpdateOne) AddVersion(u int64) *SeatUpdateOne {
+	suo.mutation.AddVersion(u)
+	return suo
+}
+
+// ClearVersion clears the value of the "version" field.
+func (suo *SeatUpdateOne) ClearVersion() *SeatUpdateOne {
+	suo.mutation.ClearVersion()
+	return suo
 }
 
 // SetIsBooked sets the "is_booked" field.
@@ -198,33 +225,6 @@ func (suo *SeatUpdateOne) SetNillablePassengerName(s *string) *SeatUpdateOne {
 // ClearPassengerName clears the value of the "passenger_name" field.
 func (suo *SeatUpdateOne) ClearPassengerName() *SeatUpdateOne {
 	suo.mutation.ClearPassengerName()
-	return suo
-}
-
-// SetVersion sets the "version" field.
-func (suo *SeatUpdateOne) SetVersion(u uint64) *SeatUpdateOne {
-	suo.mutation.ResetVersion()
-	suo.mutation.SetVersion(u)
-	return suo
-}
-
-// SetNillableVersion sets the "version" field if the given value is not nil.
-func (suo *SeatUpdateOne) SetNillableVersion(u *uint64) *SeatUpdateOne {
-	if u != nil {
-		suo.SetVersion(*u)
-	}
-	return suo
-}
-
-// AddVersion adds u to the "version" field.
-func (suo *SeatUpdateOne) AddVersion(u int64) *SeatUpdateOne {
-	suo.mutation.AddVersion(u)
-	return suo
-}
-
-// ClearVersion clears the value of the "version" field.
-func (suo *SeatUpdateOne) ClearVersion() *SeatUpdateOne {
-	suo.mutation.ClearVersion()
 	return suo
 }
 
@@ -299,15 +299,6 @@ func (suo *SeatUpdateOne) sqlSave(ctx context.Context) (_node *Seat, err error) 
 			}
 		}
 	}
-	if value, ok := suo.mutation.IsBooked(); ok {
-		_spec.SetField(seat.FieldIsBooked, field.TypeBool, value)
-	}
-	if value, ok := suo.mutation.PassengerName(); ok {
-		_spec.SetField(seat.FieldPassengerName, field.TypeString, value)
-	}
-	if suo.mutation.PassengerNameCleared() {
-		_spec.ClearField(seat.FieldPassengerName, field.TypeString)
-	}
 	if value, ok := suo.mutation.Version(); ok {
 		_spec.SetField(seat.FieldVersion, field.TypeUint64, value)
 	}
@@ -316,6 +307,15 @@ func (suo *SeatUpdateOne) sqlSave(ctx context.Context) (_node *Seat, err error) 
 	}
 	if suo.mutation.VersionCleared() {
 		_spec.ClearField(seat.FieldVersion, field.TypeUint64)
+	}
+	if value, ok := suo.mutation.IsBooked(); ok {
+		_spec.SetField(seat.FieldIsBooked, field.TypeBool, value)
+	}
+	if value, ok := suo.mutation.PassengerName(); ok {
+		_spec.SetField(seat.FieldPassengerName, field.TypeString, value)
+	}
+	if suo.mutation.PassengerNameCleared() {
+		_spec.ClearField(seat.FieldPassengerName, field.TypeString)
 	}
 	_node = &Seat{config: suo.config}
 	_spec.Assign = _node.assignValues

@@ -53,6 +53,11 @@ func IDLTE(id int) predicate.Seat {
 	return predicate.Seat(sql.FieldLTE(FieldID, id))
 }
 
+// Version applies equality check predicate on the "version" field. It's identical to VersionEQ.
+func Version(v uint64) predicate.Seat {
+	return predicate.Seat(sql.FieldEQ(FieldVersion, v))
+}
+
 // IsBooked applies equality check predicate on the "is_booked" field. It's identical to IsBookedEQ.
 func IsBooked(v bool) predicate.Seat {
 	return predicate.Seat(sql.FieldEQ(FieldIsBooked, v))
@@ -63,9 +68,54 @@ func PassengerName(v string) predicate.Seat {
 	return predicate.Seat(sql.FieldEQ(FieldPassengerName, v))
 }
 
-// Version applies equality check predicate on the "version" field. It's identical to VersionEQ.
-func Version(v uint64) predicate.Seat {
+// VersionEQ applies the EQ predicate on the "version" field.
+func VersionEQ(v uint64) predicate.Seat {
 	return predicate.Seat(sql.FieldEQ(FieldVersion, v))
+}
+
+// VersionNEQ applies the NEQ predicate on the "version" field.
+func VersionNEQ(v uint64) predicate.Seat {
+	return predicate.Seat(sql.FieldNEQ(FieldVersion, v))
+}
+
+// VersionIn applies the In predicate on the "version" field.
+func VersionIn(vs ...uint64) predicate.Seat {
+	return predicate.Seat(sql.FieldIn(FieldVersion, vs...))
+}
+
+// VersionNotIn applies the NotIn predicate on the "version" field.
+func VersionNotIn(vs ...uint64) predicate.Seat {
+	return predicate.Seat(sql.FieldNotIn(FieldVersion, vs...))
+}
+
+// VersionGT applies the GT predicate on the "version" field.
+func VersionGT(v uint64) predicate.Seat {
+	return predicate.Seat(sql.FieldGT(FieldVersion, v))
+}
+
+// VersionGTE applies the GTE predicate on the "version" field.
+func VersionGTE(v uint64) predicate.Seat {
+	return predicate.Seat(sql.FieldGTE(FieldVersion, v))
+}
+
+// VersionLT applies the LT predicate on the "version" field.
+func VersionLT(v uint64) predicate.Seat {
+	return predicate.Seat(sql.FieldLT(FieldVersion, v))
+}
+
+// VersionLTE applies the LTE predicate on the "version" field.
+func VersionLTE(v uint64) predicate.Seat {
+	return predicate.Seat(sql.FieldLTE(FieldVersion, v))
+}
+
+// VersionIsNil applies the IsNil predicate on the "version" field.
+func VersionIsNil() predicate.Seat {
+	return predicate.Seat(sql.FieldIsNull(FieldVersion))
+}
+
+// VersionNotNil applies the NotNil predicate on the "version" field.
+func VersionNotNil() predicate.Seat {
+	return predicate.Seat(sql.FieldNotNull(FieldVersion))
 }
 
 // IsBookedEQ applies the EQ predicate on the "is_booked" field.
@@ -151,56 +201,6 @@ func PassengerNameEqualFold(v string) predicate.Seat {
 // PassengerNameContainsFold applies the ContainsFold predicate on the "passenger_name" field.
 func PassengerNameContainsFold(v string) predicate.Seat {
 	return predicate.Seat(sql.FieldContainsFold(FieldPassengerName, v))
-}
-
-// VersionEQ applies the EQ predicate on the "version" field.
-func VersionEQ(v uint64) predicate.Seat {
-	return predicate.Seat(sql.FieldEQ(FieldVersion, v))
-}
-
-// VersionNEQ applies the NEQ predicate on the "version" field.
-func VersionNEQ(v uint64) predicate.Seat {
-	return predicate.Seat(sql.FieldNEQ(FieldVersion, v))
-}
-
-// VersionIn applies the In predicate on the "version" field.
-func VersionIn(vs ...uint64) predicate.Seat {
-	return predicate.Seat(sql.FieldIn(FieldVersion, vs...))
-}
-
-// VersionNotIn applies the NotIn predicate on the "version" field.
-func VersionNotIn(vs ...uint64) predicate.Seat {
-	return predicate.Seat(sql.FieldNotIn(FieldVersion, vs...))
-}
-
-// VersionGT applies the GT predicate on the "version" field.
-func VersionGT(v uint64) predicate.Seat {
-	return predicate.Seat(sql.FieldGT(FieldVersion, v))
-}
-
-// VersionGTE applies the GTE predicate on the "version" field.
-func VersionGTE(v uint64) predicate.Seat {
-	return predicate.Seat(sql.FieldGTE(FieldVersion, v))
-}
-
-// VersionLT applies the LT predicate on the "version" field.
-func VersionLT(v uint64) predicate.Seat {
-	return predicate.Seat(sql.FieldLT(FieldVersion, v))
-}
-
-// VersionLTE applies the LTE predicate on the "version" field.
-func VersionLTE(v uint64) predicate.Seat {
-	return predicate.Seat(sql.FieldLTE(FieldVersion, v))
-}
-
-// VersionIsNil applies the IsNil predicate on the "version" field.
-func VersionIsNil() predicate.Seat {
-	return predicate.Seat(sql.FieldIsNull(FieldVersion))
-}
-
-// VersionNotNil applies the NotNil predicate on the "version" field.
-func VersionNotNil() predicate.Seat {
-	return predicate.Seat(sql.FieldNotNull(FieldVersion))
 }
 
 // And groups predicates with the AND operator between them.

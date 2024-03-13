@@ -19,6 +19,20 @@ type SeatCreate struct {
 	hooks    []Hook
 }
 
+// SetVersion sets the "version" field.
+func (sc *SeatCreate) SetVersion(u uint64) *SeatCreate {
+	sc.mutation.SetVersion(u)
+	return sc
+}
+
+// SetNillableVersion sets the "version" field if the given value is not nil.
+func (sc *SeatCreate) SetNillableVersion(u *uint64) *SeatCreate {
+	if u != nil {
+		sc.SetVersion(*u)
+	}
+	return sc
+}
+
 // SetIsBooked sets the "is_booked" field.
 func (sc *SeatCreate) SetIsBooked(b bool) *SeatCreate {
 	sc.mutation.SetIsBooked(b)
@@ -47,20 +61,6 @@ func (sc *SeatCreate) SetNillablePassengerName(s *string) *SeatCreate {
 	return sc
 }
 
-// SetVersion sets the "version" field.
-func (sc *SeatCreate) SetVersion(u uint64) *SeatCreate {
-	sc.mutation.SetVersion(u)
-	return sc
-}
-
-// SetNillableVersion sets the "version" field if the given value is not nil.
-func (sc *SeatCreate) SetNillableVersion(u *uint64) *SeatCreate {
-	if u != nil {
-		sc.SetVersion(*u)
-	}
-	return sc
-}
-
 // SetID sets the "id" field.
 func (sc *SeatCreate) SetID(i int) *SeatCreate {
 	sc.mutation.SetID(i)
@@ -74,7 +74,9 @@ func (sc *SeatCreate) Mutation() *SeatMutation {
 
 // Save creates the Seat in the database.
 func (sc *SeatCreate) Save(ctx context.Context) (*Seat, error) {
-	sc.defaults()
+	if err := sc.defaults(); err != nil {
+		return nil, err
+	}
 	return withHooks(ctx, sc.sqlSave, sc.mutation, sc.hooks)
 }
 
@@ -101,15 +103,16 @@ func (sc *SeatCreate) ExecX(ctx context.Context) {
 }
 
 // defaults sets the default values of the builder before save.
-func (sc *SeatCreate) defaults() {
-	if _, ok := sc.mutation.IsBooked(); !ok {
-		v := seat.DefaultIsBooked
-		sc.mutation.SetIsBooked(v)
-	}
+func (sc *SeatCreate) defaults() error {
 	if _, ok := sc.mutation.Version(); !ok {
 		v := seat.DefaultVersion
 		sc.mutation.SetVersion(v)
 	}
+	if _, ok := sc.mutation.IsBooked(); !ok {
+		v := seat.DefaultIsBooked
+		sc.mutation.SetIsBooked(v)
+	}
+	return nil
 }
 
 // check runs all checks and user-defined validators on the builder.
@@ -149,6 +152,10 @@ func (sc *SeatCreate) createSpec() (*Seat, *sqlgraph.CreateSpec) {
 		_node.ID = id
 		_spec.ID.Value = id
 	}
+	if value, ok := sc.mutation.Version(); ok {
+		_spec.SetField(seat.FieldVersion, field.TypeUint64, value)
+		_node.Version = value
+	}
 	if value, ok := sc.mutation.IsBooked(); ok {
 		_spec.SetField(seat.FieldIsBooked, field.TypeBool, value)
 		_node.IsBooked = value
@@ -156,10 +163,6 @@ func (sc *SeatCreate) createSpec() (*Seat, *sqlgraph.CreateSpec) {
 	if value, ok := sc.mutation.PassengerName(); ok {
 		_spec.SetField(seat.FieldPassengerName, field.TypeString, value)
 		_node.PassengerName = &value
-	}
-	if value, ok := sc.mutation.Version(); ok {
-		_spec.SetField(seat.FieldVersion, field.TypeUint64, value)
-		_node.Version = value
 	}
 	return _node, _spec
 }

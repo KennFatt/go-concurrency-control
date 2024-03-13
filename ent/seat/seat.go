@@ -3,6 +3,7 @@
 package seat
 
 import (
+	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 )
 
@@ -11,12 +12,12 @@ const (
 	Label = "seat"
 	// FieldID holds the string denoting the id field in the database.
 	FieldID = "id"
+	// FieldVersion holds the string denoting the version field in the database.
+	FieldVersion = "version"
 	// FieldIsBooked holds the string denoting the is_booked field in the database.
 	FieldIsBooked = "is_booked"
 	// FieldPassengerName holds the string denoting the passenger_name field in the database.
 	FieldPassengerName = "passenger_name"
-	// FieldVersion holds the string denoting the version field in the database.
-	FieldVersion = "version"
 	// Table holds the table name of the seat in the database.
 	Table = "seats"
 )
@@ -24,9 +25,9 @@ const (
 // Columns holds all SQL columns for seat fields.
 var Columns = []string{
 	FieldID,
+	FieldVersion,
 	FieldIsBooked,
 	FieldPassengerName,
-	FieldVersion,
 }
 
 // ValidColumn reports if the column name is valid (part of the table columns).
@@ -39,11 +40,17 @@ func ValidColumn(column string) bool {
 	return false
 }
 
+// Note that the variables below are initialized by the runtime
+// package on the initialization of the application. Therefore,
+// it should be imported in the main as follows:
+//
+//	import _ "go-cc/ent/runtime"
 var (
-	// DefaultIsBooked holds the default value on creation for the "is_booked" field.
-	DefaultIsBooked bool
+	Hooks [1]ent.Hook
 	// DefaultVersion holds the default value on creation for the "version" field.
 	DefaultVersion uint64
+	// DefaultIsBooked holds the default value on creation for the "is_booked" field.
+	DefaultIsBooked bool
 )
 
 // OrderOption defines the ordering options for the Seat queries.
@@ -54,6 +61,11 @@ func ByID(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldID, opts...).ToFunc()
 }
 
+// ByVersion orders the results by the version field.
+func ByVersion(opts ...sql.OrderTermOption) OrderOption {
+	return sql.OrderByField(FieldVersion, opts...).ToFunc()
+}
+
 // ByIsBooked orders the results by the is_booked field.
 func ByIsBooked(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldIsBooked, opts...).ToFunc()
@@ -62,9 +74,4 @@ func ByIsBooked(opts ...sql.OrderTermOption) OrderOption {
 // ByPassengerName orders the results by the passenger_name field.
 func ByPassengerName(opts ...sql.OrderTermOption) OrderOption {
 	return sql.OrderByField(FieldPassengerName, opts...).ToFunc()
-}
-
-// ByVersion orders the results by the version field.
-func ByVersion(opts ...sql.OrderTermOption) OrderOption {
-	return sql.OrderByField(FieldVersion, opts...).ToFunc()
 }

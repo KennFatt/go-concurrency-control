@@ -2,7 +2,31 @@
 
 package runtime
 
-// The schema-stitching logic is generated in go-cc/ent/runtime.go
+import (
+	"go-cc/ent/schema"
+	"go-cc/ent/seat"
+)
+
+// The init function reads all schema descriptors with runtime code
+// (default values, validators, hooks and policies) and stitches it
+// to their package variables.
+func init() {
+	seatMixin := schema.Seat{}.Mixin()
+	seatMixinHooks0 := seatMixin[0].Hooks()
+	seat.Hooks[0] = seatMixinHooks0[0]
+	seatMixinFields0 := seatMixin[0].Fields()
+	_ = seatMixinFields0
+	seatFields := schema.Seat{}.Fields()
+	_ = seatFields
+	// seatDescVersion is the schema descriptor for version field.
+	seatDescVersion := seatMixinFields0[0].Descriptor()
+	// seat.DefaultVersion holds the default value on creation for the version field.
+	seat.DefaultVersion = seatDescVersion.Default.(uint64)
+	// seatDescIsBooked is the schema descriptor for is_booked field.
+	seatDescIsBooked := seatFields[1].Descriptor()
+	// seat.DefaultIsBooked holds the default value on creation for the is_booked field.
+	seat.DefaultIsBooked = seatDescIsBooked.Default.(bool)
+}
 
 const (
 	Version = "v0.13.1"                                         // Version of ent codegen.

@@ -261,12 +261,12 @@ func (sq *SeatQuery) Clone() *SeatQuery {
 // Example:
 //
 //	var v []struct {
-//		IsBooked bool `json:"is_booked,omitempty"`
+//		Version uint64 `json:"version,omitempty"`
 //		Count int `json:"count,omitempty"`
 //	}
 //
 //	client.Seat.Query().
-//		GroupBy(seat.FieldIsBooked).
+//		GroupBy(seat.FieldVersion).
 //		Aggregate(ent.Count()).
 //		Scan(ctx, &v)
 func (sq *SeatQuery) GroupBy(field string, fields ...string) *SeatGroupBy {
@@ -284,11 +284,11 @@ func (sq *SeatQuery) GroupBy(field string, fields ...string) *SeatGroupBy {
 // Example:
 //
 //	var v []struct {
-//		IsBooked bool `json:"is_booked,omitempty"`
+//		Version uint64 `json:"version,omitempty"`
 //	}
 //
 //	client.Seat.Query().
-//		Select(seat.FieldIsBooked).
+//		Select(seat.FieldVersion).
 //		Scan(ctx, &v)
 func (sq *SeatQuery) Select(fields ...string) *SeatSelect {
 	sq.ctx.Fields = append(sq.ctx.Fields, fields...)
