@@ -3,10 +3,7 @@ package usecases
 import (
 	"context"
 	"errors"
-	"go-cc/ent"
 	"go-cc/ent/seat"
-	"time"
-
 	"github.com/mitchellh/mapstructure"
 )
 
@@ -28,26 +25,12 @@ var (
 	ErrDataUpdatedByAnotherProcess = errors.New("the seat is updated by another process")
 )
 
-func optimisticUpdate(ctx context.Context, tx *ent.Tx, prev *ent.Seat, updateFunc func(*ent.SeatUpdate) *ent.SeatUpdate) (int, error) {
-	nextVersion := time.Now().UnixNano()
-
-	updater := tx.Seat.Update().Where(seat.ID(prev.ID), seat.Version(prev.Version)).SetVersion(uint64(nextVersion))
-
-	saveUpdate := updateFunc(updater)
-	updatedRows, err := saveUpdate.Save(ctx)
-	if err != nil {
-		return 0, err
-	}
-
-	if updatedRows != 1 {
-		return 0, ErrDataUpdatedByAnotherProcess
-	}
-
-	return updatedRows, nil
-}
-
 func (us *UseCases) BookSeat(ctx context.Context, in InBookSeat) (*OutBookSeat, error) {
 	tx, err := us.db.Tx(ctx)
+	if err != nil {
+		return nil, err
+	}
+
 	defer func() {
 		if err != nil {
 			tx.Rollback()
@@ -56,10 +39,6 @@ func (us *UseCases) BookSeat(ctx context.Context, in InBookSeat) (*OutBookSeat, 
 
 		tx.Commit()
 	}()
-
-	if err != nil {
-		return nil, err
-	}
 
 	// Find the requested seat
 	requestedSeat, err := tx.Seat.Query().Where(seat.ID(in.SeatID)).Only(ctx)
@@ -72,20 +51,18 @@ func (us *UseCases) BookSeat(ctx context.Context, in InBookSeat) (*OutBookSeat, 
 	}
 
 	// Book a seat
-	// _, err = optimisticUpdate(ctx, tx, requestedSeat, func(su *ent.SeatUpdate) *ent.SeatUpdate {
-	// 	return su.
-	// 		SetIsBooked(true).
-	// 		SetPassengerName(in.PassengerName)
-	// })
-
-	_, err = tx.Seat.
+	n, err := tx.Seat.
 		Update().
-		Where(seat.ID(in.SeatID)).
+		Where(seat.ID(in.SeatID), seat.Version(requestedSeat.Version)).
 		SetIsBooked(true).
 		SetPassengerName(in.PassengerName).
 		Save(ctx)
 	if err != nil {
 		return nil, err
+	}
+
+	if n != 1 {
+		return nil, ErrDataUpdatedByAnotherProcess
 	}
 
 	// Return the updated data from the transaction.
