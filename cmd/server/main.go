@@ -9,16 +9,6 @@ import (
 	"net/http"
 )
 
-// TODO:
-// - [x] Read a DB config
-// - [x] Initiate a Ent client
-//   - [x] Define the seat schema
-//
-// - [x] Initiate a Mux
-//   - [x] Get list of the available seats
-//   - [x] Book a specific seat
-//   - [x] Reproduce the problem
-//   - [x] Solve the problem with OCC
 func main() {
 	config, err := conf.ReadConfig()
 	failureOnError("fail to read the config", err)

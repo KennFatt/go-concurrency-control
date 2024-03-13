@@ -61,15 +61,11 @@ func main() {
 	passangers := []BookFlightSeatPayload{
 		{
 			SeatID:        targetedFlightSeat,
-			PassengerName: "Foo",
+			PassengerName: "Corbin",
 		},
 		{
 			SeatID:        targetedFlightSeat,
-			PassengerName: "Bar",
-		},
-		{
-			SeatID:        targetedFlightSeat,
-			PassengerName: "Fizz",
+			PassengerName: "Miles",
 		},
 	}
 
